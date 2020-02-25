@@ -9,6 +9,8 @@
     <ItemGroup>
       <PackageReference Include="AngleSharp" Version="0.13.0" />
       <PackageReference Include="CSharpFunctionalExtensions" Version="2.3.0" />
+      <PackageReference Include="System.IO.Compression.ZipFile" Version="4.3.0" />
+      <PackageReference Include="VideoLibrary" Version="3.0.0" />
     </ItemGroup>
     <ItemGroup>
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">

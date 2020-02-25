@@ -7,7 +7,7 @@ using AngleSharp.Dom;
 
 namespace PPDownload.Scraping
 {
-    public class PpdScraper
+    public abstract class PpdScraper
     {
         protected IConfiguration   _config = Configuration.Default.WithDefaultLoader();
         protected IBrowsingContext _context;
