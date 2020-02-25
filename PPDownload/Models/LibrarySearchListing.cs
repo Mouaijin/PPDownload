@@ -40,28 +40,43 @@ namespace PPDownload.Models
         /// <summary>
         /// Easy-mode difficulty, if score included
         /// </summary>
-        public double? Easy { get; set; }
+        public decimal? Easy { get; set; }
 
         /// <summary>
         /// Normal-mode difficulty, if score included
         /// </summary>
-        public double? Normal { get; set; }
+        public decimal? Normal { get; set; }
 
         /// <summary>
         /// Hard-mode difficulty, if score included
         /// </summary>
-        public double? Hard { get; set; }
+        public decimal? Hard { get; set; }
 
         /// <summary>
         /// Extreme-mode difficulty, if score included
         /// </summary>
-        public double? Extreme { get; set; }
-
+        public decimal? Extreme { get; set; }
+        
+        /// <summary>
+        /// Number of times score has been downloaded
+        /// </summary>
+        public int? Downloads { get; set; }
+        
+        /// <summary>
+        /// Number of times score has been downloaded
+        /// </summary>
+        public int? BPM { get; set; }
+        
         /// <summary>
         /// Rating for the score
         /// </summary>
-        public double? Evaluation { get; set; }
-
+        public decimal? Evaluation { get; set; }
+        
+        /// <summary>
+        /// Number of evaluations
+        /// </summary>
+        public int? Evaluators { get; set; }
+        
         /// <summary>
         /// Score duration, as displayed on the PPD site
         /// </summary>
