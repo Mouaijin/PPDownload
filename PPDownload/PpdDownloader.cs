@@ -18,15 +18,15 @@ namespace PPDownload
         /// </summary>
         /// <param name="listing">Search result listing</param>
         /// <param name="directory">Directory to unzip to</param>
-        /// <returns>Success or an error message</returns>
-        public async Task<Result> DownloadZip(LibrarySearchListing listing, string directory)
+        /// <returns>The created file or an error message</returns>
+        public async Task<Result<string,string>> DownloadZip(LibrarySearchListing listing, string directory)
         {
             try
             {
                 WebClient client = new WebClient();
                 var       data   = await client.DownloadDataTaskAsync(new Uri(listing.DownloadLink));
                 string    filename;
-                if (!string.IsNullOrEmpty(client.Headers["Content-Disposition"]))
+                if (!string.IsNullOrEmpty(client.ResponseHeaders["Content-Disposition"]))
                 {
                     filename = client.ResponseHeaders["Content-Disposition"]
                                      .Substring(client.ResponseHeaders["Content-Disposition"]
@@ -38,13 +38,13 @@ namespace PPDownload
                     filename = $"PPDownload-{DateTime.Now:s}.zip";
                 }
 
-
-                File.WriteAllBytes(Path.Join(directory, filename), data);
-                return Result.Success();
+                var filePath = Path.Join(directory, filename);
+                File.WriteAllBytes(filePath, data);
+                return Result.Success<string,string>(filePath);
             }
             catch (Exception e)
             {
-                return Result.Failure(e.Message);
+                return Result.Failure<string,string>(e.Message);
             }
         }
 
@@ -62,7 +62,7 @@ namespace PPDownload
                 var       data             = await client.DownloadDataTaskAsync(new Uri(listing.DownloadLink));
                 using var stream           = new MemoryStream(data);
                 using var archive          = new ZipArchive(stream, ZipArchiveMode.Read);
-                var       newDirectoryName = archive.Entries.FirstOrDefault()?.Name;
+                var       newDirectoryName = archive.Entries.FirstOrDefault()?.FullName.Split('/')[0];
                 if (string.IsNullOrEmpty(newDirectoryName))
                 {
                     return Result.Failure<string, string>("Could not resolve new directory name, aborting.");
@@ -83,7 +83,7 @@ namespace PPDownload
         /// <param name="listing">Search result listing</param>
         /// <param name="directory">Directory to unzip to</param>
         /// <returns>The created directory or an error message</returns>
-        public async Task<Result> DownloadUnzipWithVideo(LibrarySearchListing listing, string directory)
+        public async Task<Result<string,string>> DownloadUnzipWithVideo(LibrarySearchListing listing, string directory)
         {
             try
             {
@@ -98,11 +98,11 @@ namespace PPDownload
                 var video         = youtube.GetVideo(listing.VideoLink);
                 var videoPath     = Path.Join(directoryPath, video.FullName);
                 File.WriteAllBytes(videoPath, video.GetBytes());
-                return Result.Success();
+                return Result.Success<string,string>(directoryPath);
             }
             catch (Exception e)
             {
-                return Result.Failure(e.Message);
+                return Result.Failure<string,string>(e.Message);
             }
         }
     }
