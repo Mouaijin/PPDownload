@@ -48,7 +48,7 @@ namespace PPDownload.Tests
                 Assert.True(fileInfo.Length > 0);
                 Directory.Delete(_dir, true);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 if (Directory.Exists(_dir))
                     Directory.Delete(_dir);
@@ -69,7 +69,7 @@ namespace PPDownload.Tests
                 Assert.True(dirInfo.GetFiles().Length > 0);
                 Directory.Delete(_dir, true);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 if (Directory.Exists(_dir))
                     Directory.Delete(_dir);
@@ -91,7 +91,7 @@ namespace PPDownload.Tests
                 Assert.Contains(dirInfo.GetFiles(), x => x.Extension == ".mp4");
                 Directory.Delete(_dir, true);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 if (Directory.Exists(_dir))
                     Directory.Delete(_dir);

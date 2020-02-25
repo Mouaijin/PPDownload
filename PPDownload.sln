@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PPDownload", "PPDownload\PP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PPDownload.Tests", "PPDownload.Tests\PPDownload.Tests.csproj", "{B02DF084-8E31-47F4-A0D0-D66EBA1A1664}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PPDownload.GUI", "PPDownload.GUI\PPDownload.GUI.csproj", "{487485C2-9132-44E0-A2EF-2BE346AE91CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{B02DF084-8E31-47F4-A0D0-D66EBA1A1664}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B02DF084-8E31-47F4-A0D0-D66EBA1A1664}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B02DF084-8E31-47F4-A0D0-D66EBA1A1664}.Release|Any CPU.Build.0 = Release|Any CPU
+		{487485C2-9132-44E0-A2EF-2BE346AE91CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{487485C2-9132-44E0-A2EF-2BE346AE91CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{487485C2-9132-44E0-A2EF-2BE346AE91CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{487485C2-9132-44E0-A2EF-2BE346AE91CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

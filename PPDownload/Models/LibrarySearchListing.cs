@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PPDownload.Models
 {
@@ -56,27 +57,27 @@ namespace PPDownload.Models
         /// Extreme-mode difficulty, if score included
         /// </summary>
         public decimal? Extreme { get; set; }
-        
+
         /// <summary>
         /// Number of times score has been downloaded
         /// </summary>
         public int? Downloads { get; set; }
-        
+
         /// <summary>
         /// Number of times score has been downloaded
         /// </summary>
         public int? BPM { get; set; }
-        
+
         /// <summary>
         /// Rating for the score
         /// </summary>
         public decimal? Evaluation { get; set; }
-        
+
         /// <summary>
         /// Number of evaluations
         /// </summary>
         public int? Evaluators { get; set; }
-        
+
         /// <summary>
         /// Score duration, as displayed on the PPD site
         /// </summary>

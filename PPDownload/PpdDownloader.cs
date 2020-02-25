@@ -13,6 +13,8 @@ namespace PPDownload
 {
     public class PpDownloader
     {
+        private const string _defaultScoreFolder = @"C:\KHC\PPD\songs";
+        
         /// <summary>
         /// Downloads a score zip file to the destination directory
         /// </summary>
@@ -98,6 +100,34 @@ namespace PPDownload
                 var video         = youtube.GetVideo(listing.VideoLink);
                 var videoPath     = Path.Join(directoryPath, video.FullName);
                 File.WriteAllBytes(videoPath, video.GetBytes());
+                return Result.Success<string,string>(directoryPath);
+            }
+            catch (Exception e)
+            {
+                return Result.Failure<string,string>(e.Message);
+            }
+        }
+        
+        /// <summary>
+        /// Downloads a score and video to the default score folder
+        /// </summary>
+        /// <param name="listing">Search result listing</param>
+        /// <returns>The created directory or an error message</returns>
+        public async Task<Result<string,string>> DownloadUnzipWithVideoDefault(LibrarySearchListing listing)
+        {
+            try
+            {
+                var unzipResult = await DownloadAndUnzip(listing, _defaultScoreFolder);
+                if (unzipResult.IsFailure)
+                {
+                    return unzipResult;
+                }
+
+                var directoryPath = unzipResult.Value;
+                var youtube       = YouTube.Default;
+                var video         = youtube.GetVideo(listing.VideoLink);
+                var videoPath     = Path.Join(directoryPath, video.FullName);
+                await File.WriteAllBytesAsync(videoPath, await video.GetBytesAsync());
                 return Result.Success<string,string>(directoryPath);
             }
             catch (Exception e)
