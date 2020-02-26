@@ -33,31 +33,36 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Content="{Binding Title}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label x:Name="Title" Content="{Binding Title}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" Style="{DynamicResource MaterialDesignTitleLabel}"/>
+        <Label x:Name="Author" Content="{Binding Author}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0"/>
+        <materialDesign:MaterialDateDisplay x:Name="UploadDate" DisplayDate="{Binding Uploaded}" Grid.Column="6" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,25,0"/>
+        <Button x:Name="DownloadButton" Content="Download" Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,65,0"/>
 
+        <TextBlock x:Name="Easy" Text="{Binding Easy}" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" />
+        <TextBlock x:Name="Normal" Text="{Binding Normal}" HorizontalAlignment="Center" Grid.Column="1"  Grid.Row="3" VerticalAlignment="Center"/>
+        <TextBlock x:Name="Hard" Text="{Binding Hard}" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center"/>
+        <TextBlock x:Name="Extreme" Text="{Binding Extreme}" HorizontalAlignment="Center" Grid.Column="3" Grid.Row="3" VerticalAlignment="Center"/>
+        <TextBlock x:Name="Downloads" Text="{Binding Downloads}" HorizontalAlignment="Center" Grid.Column="4" Grid.Row="3" VerticalAlignment="Center"/>
+        <TextBlock x:Name="BPM" Text="{Binding BPM}" HorizontalAlignment="Center" Grid.Column="5" Grid.Row="3" VerticalAlignment="Center"/>
+        <TextBlock x:Name="Evaluation" Text="{Binding EvaluationString}" HorizontalAlignment="Center" Grid.Column="6" Grid.Row="3" VerticalAlignment="Center"/>
+        <TextBlock x:Name="Length" Text="{Binding Length }" HorizontalAlignment="Center" Grid.Column="7" Grid.Row="3" VerticalAlignment="Center"/>
 
-        <Label Content="{Binding Easy}" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" />
-        <Label Content="{Binding Normal}" HorizontalAlignment="Center" Grid.Column="1"  Grid.Row="2" VerticalAlignment="Center"/>
-        <Label Content="{Binding Hard}" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center"/>
-        <Label Content="{Binding Extreme}" HorizontalAlignment="Center" Grid.Column="3" Grid.Row="2" VerticalAlignment="Center"/>
-        <Label Content="{Binding Downloads}" HorizontalAlignment="Center" Grid.Column="4" Grid.Row="2" VerticalAlignment="Center"/>
-        <Label Content="{Binding BPM}" HorizontalAlignment="Center" Grid.Column="5" Grid.Row="2" VerticalAlignment="Center"/>
-        <Label Content="{Binding Length }" HorizontalAlignment="Center" Grid.Column="7" Grid.Row="2" VerticalAlignment="Center"/>
-
-        <Label Content="Easy" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
-        <Label Content="Normal" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"/>
-        <Label Content="Hard" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center"/>
-        <Label Content="Extreme" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="3" VerticalAlignment="Center"/>
-        <Label Content="Downloads" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="4" VerticalAlignment="Center"/>
-        <Label Content="BPM" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="5" VerticalAlignment="Center"/>
-        <Label Content="Evaluation" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="6" VerticalAlignment="Center"/>
-        <Label Content="Length" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="7" VerticalAlignment="Center"/>
+        <Label Content="Easy" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
+        <Label Content="Normal" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"/>
+        <Label Content="Hard" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center"/>
+        <Label Content="Extreme" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="3" VerticalAlignment="Center"/>
+        <Label Content="Downloads" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="4" VerticalAlignment="Center"/>
+        <Label Content="BPM" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="5" VerticalAlignment="Center"/>
+        <Label Content="Evaluation" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="6" VerticalAlignment="Center"/>
+        <Label Content="Length" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="7" VerticalAlignment="Center"/>
+        <TextBlock x:Name="Description"  Text="{Binding Description}" Grid.ColumnSpan="6" HorizontalAlignment="Center" Height="100" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Width="557"/>
 
 
 

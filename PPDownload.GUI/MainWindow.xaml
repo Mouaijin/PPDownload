@@ -13,10 +13,20 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="PPDownload" Height="450" Width="800">
+        Title="PPDownload" Height="800" Width="800">
     <Grid>
-        <materialDesign:Card Padding="32" Margin="16">
-            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">My First Material Design App</TextBlock>
-        </materialDesign:Card>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50px"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="SearchBox" Grid.Row="0" Grid.Column="0" Margin="10,10,10,10"/>
+        <Button x:Name="SearchButton" Content="Search" Grid.Row="0" Grid.Column="1"/>
+        <ListView x:Name="SearchResults" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="10,10,10,10">
+            
+        </ListView>
     </Grid>
 </Window>

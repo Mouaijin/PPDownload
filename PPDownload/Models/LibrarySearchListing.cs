@@ -79,6 +79,11 @@ namespace PPDownload.Models
         public int? Evaluators { get; set; }
 
         /// <summary>
+        /// Formatted string display for Evaluation/(Evaluators)
+        /// </summary>
+        public string EvaluationString => $"{Evaluation.GetValueOrDefault()}/({Evaluators.GetValueOrDefault()})";
+
+        /// <summary>
         /// Score duration, as displayed on the PPD site
         /// </summary>
         public string Length { get; set; }
