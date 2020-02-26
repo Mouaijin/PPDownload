@@ -87,5 +87,10 @@ namespace PPDownload.Models
         /// Score duration, as displayed on the PPD site
         /// </summary>
         public string Length { get; set; }
+
+        /// <summary>
+        /// ID of the score used by the site
+        /// </summary>
+        public string ScoreID { get; set; }
     }
 }

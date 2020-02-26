@@ -18,7 +18,7 @@ namespace PPDownload.Tests
                                                                    "I've been working on this song for two weeks, so I really hope you will enjoy it :)",
                                                                DownloadLink =
                                                                    "https://projectdxxx.me/score-library/download/id/13c2aaad8377b9890b7b4fb03fbaa4d0",
-                                                               Downloads  = 362,
+                                                               Downloads  = 384,
                                                                Easy       = null,
                                                                Evaluation = 4.14m,
                                                                Evaluators = 37,
@@ -29,8 +29,9 @@ namespace PPDownload.Tests
                                                                Title      = "News 39 ver桜-さん",
                                                                Uploaded   = new DateTime(2018, 7, 17, 1, 5, 42),
                                                                VideoLink =
-                                                                   "https://www.youtube.com/watch?v=l69v6SVoE9k"
-                                                           };
+                                                                   "https://www.youtube.com/watch?v=l69v6SVoE9k",
+                                                               ScoreID = "13c2aaad8377b9890b7b4fb03fbaa4d0"
+        };
 
         private readonly PpDownloader _ppd = new PpDownloader();
         private const    string       _dir = "test";

@@ -12,35 +12,36 @@ namespace PPDownload.Tests
         public async void News39SearchTest()
         {
             LibraryScraper lib = new LibraryScraper();
-            var searchScores =  lib.SearchScores("news");
+            var searchScores = lib.SearchScores("news");
             var searchEnumerator = searchScores.GetAsyncEnumerator();
             await searchEnumerator.MoveNextAsync();
             LibrarySearchListing news39 = searchEnumerator.Current;
             LibrarySearchListing expected = new LibrarySearchListing()
-                                            {
-                                                Author = "Sakura-san (桜-さん)",
-                                                BPM    = 132,
-                                                Description =
-                                                    "I've been working on this song for two weeks, so I really hope you will enjoy it :)",
-                                                DownloadLink =
-                                                    "https://projectdxxx.me/score-library/download/id/13c2aaad8377b9890b7b4fb03fbaa4d0",
-                                                Downloads  = 362,
-                                                Easy       = null,
-                                                Evaluation = 4.14m,
-                                                Evaluators = 37,
-                                                Extreme    = 21.08m,
-                                                Hard       = null,
-                                                Length     = "3:41",
-                                                Normal     = null,
-                                                Title      = "News 39 ver桜-さん",
-                                                Uploaded   = new DateTime(2018, 7, 17, 1, 5, 42),
-                                                VideoLink  = "https://www.youtube.com/watch?v=l69v6SVoE9k"
-                                            };
+            {
+                Author = "Sakura-san (桜-さん)",
+                BPM = 132,
+                Description =
+                    "I've been working on this song for two weeks, so I really hope you will enjoy it :)",
+                DownloadLink =
+                    "https://projectdxxx.me/score-library/download/id/13c2aaad8377b9890b7b4fb03fbaa4d0",
+                Downloads = 384,
+                Easy = null,
+                Evaluation = 4.14m,
+                Evaluators = 37,
+                Extreme = 21.08m,
+                Hard = null,
+                Length = "3:41",
+                Normal = null,
+                Title = "News 39 ver桜-さん",
+                Uploaded = new DateTime(2018, 7, 17, 1, 5, 42),
+                VideoLink = "https://www.youtube.com/watch?v=l69v6SVoE9k",
+                ScoreID = "13c2aaad8377b9890b7b4fb03fbaa4d0"
+            };
             Assert.Equal(expected.Author, news39.Author);
             Assert.Equal(expected.BPM, news39.BPM);
             Assert.Equal(expected.Description, news39.Description);
             Assert.Equal(expected.DownloadLink, news39.DownloadLink);
-            Assert.Equal(expected.Downloads, news39.Downloads);
+            Assert.True(news39.Downloads > 380);
             Assert.Equal(expected.Easy, news39.Easy);
             Assert.Equal(expected.Evaluation, news39.Evaluation);
             Assert.Equal(expected.Evaluators, news39.Evaluators);
@@ -51,7 +52,7 @@ namespace PPDownload.Tests
             Assert.Equal(expected.Title, news39.Title);
             Assert.Equal(expected.Uploaded, news39.Uploaded);
             Assert.Equal(expected.VideoLink, news39.VideoLink);
-
+            Assert.Equal(expected.ScoreID, news39.ScoreID);
         }
     }
 }

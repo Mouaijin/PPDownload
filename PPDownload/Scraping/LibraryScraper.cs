@@ -19,7 +19,7 @@ namespace PPDownload.Scraping
 
         public async IAsyncEnumerable<LibrarySearchListing> SearchScores(string query)
         {
-            var doc         = await MakeRequest(query);
+            var doc = await MakeRequest(query);
             var rawListings = doc.Body.QuerySelectorAll("div.panel");
             foreach (IElement listingElement in rawListings)
             {
@@ -41,6 +41,13 @@ namespace PPDownload.Scraping
             if (string.IsNullOrEmpty(title))
             {
                 return Result.Failure<LibrarySearchListing, string>("Could not retrieve title.");
+            }
+
+            var id = root.QuerySelector("div.panel-heading > h3 > div > a")?.Attributes["href"].Value.Split('/')
+                         .LastOrDefault() ?? "";
+            if (string.IsNullOrEmpty(id))
+            {
+                return Result.Failure<LibrarySearchListing, string>("Could not retrieve ID.");
             }
 
             var author = root.QuerySelector("div.panel-heading > div.pull-right > a")?.Text()?.CleanInnerHtml();
@@ -80,52 +87,53 @@ namespace PPDownload.Scraping
 
             var difficultyTable = root.QuerySelector("table > tbody > tr:nth-of-type(2)");
             var easyStr = difficultyTable?.QuerySelector("td:nth-of-type(1)")?.InnerHtml.CleanInnerHtml()
-                                         .Replace("pt", "") ?? "";
+                              .Replace("pt", "") ?? "";
             var normalStr = difficultyTable?.QuerySelector("td:nth-of-type(2)")?.InnerHtml.CleanInnerHtml()
-                                           .Replace("pt", "") ?? "";
+                                .Replace("pt", "") ?? "";
             var hardStr = difficultyTable?.QuerySelector("td:nth-of-type(3)")?.InnerHtml.CleanInnerHtml()
-                                         .Replace("pt", "") ?? "";
+                              .Replace("pt", "") ?? "";
             var extremeStr = difficultyTable?.QuerySelector("td:nth-of-type(4)")?.InnerHtml.CleanInnerHtml()
-                                            .Replace("pt", "") ?? "";
+                                 .Replace("pt", "") ?? "";
             var downloadsStr = difficultyTable?.QuerySelector("td:nth-of-type(5)")?.InnerHtml.CleanInnerHtml() ?? "";
-            var bpmStr       = difficultyTable?.QuerySelector("td:nth-of-type(6)")?.InnerHtml.CleanInnerHtml() ?? "";
-            var evalStr      = difficultyTable?.QuerySelector("td:nth-of-type(7)")?.InnerHtml.CleanInnerHtml() ?? "";
-            var length       = difficultyTable?.QuerySelector("td:nth-of-type(8)")?.InnerHtml.CleanInnerHtml() ?? "";
+            var bpmStr = difficultyTable?.QuerySelector("td:nth-of-type(6)")?.InnerHtml.CleanInnerHtml() ?? "";
+            var evalStr = difficultyTable?.QuerySelector("td:nth-of-type(7)")?.InnerHtml.CleanInnerHtml() ?? "";
+            var length = difficultyTable?.QuerySelector("td:nth-of-type(8)")?.InnerHtml.CleanInnerHtml() ?? "";
 
             var evalScoreStr = Regex.Match(evalStr, @"([0-9].[0-9]+)\(\<span").Groups[1].Captures.FirstOrDefault()
-                                    ?.Value;
+                ?.Value;
             var evalCountStr = Regex.Match(evalStr, @"span\>([0-9]+)\)").Groups[1].Captures.FirstOrDefault()?.Value;
 
 
-            var easy      = easyStr.ParseDecimalNullable();
-            var normal    = normalStr.ParseDecimalNullable();
-            var hard      = hardStr.ParseDecimalNullable();
-            var extreme   = extremeStr.ParseDecimalNullable();
+            var easy = easyStr.ParseDecimalNullable();
+            var normal = normalStr.ParseDecimalNullable();
+            var hard = hardStr.ParseDecimalNullable();
+            var extreme = extremeStr.ParseDecimalNullable();
             var downloads = downloadsStr.ParseIntNullable();
-            var bpm       = bpmStr.ParseIntNullable();
+            var bpm = bpmStr.ParseIntNullable();
             var evalScore = evalScoreStr.ParseDecimalNullable();
             var evalCount = evalCountStr.ParseIntNullable();
 
             var uploadDate = DateTime.Parse(uploadedStr);
 
             var result = new LibrarySearchListing()
-                         {
-                             Author       = author,
-                             BPM          = bpm,
-                             Description  = description,
-                             DownloadLink = downloadLink,
-                             Downloads    = downloads,
-                             Easy         = easy,
-                             Normal       = normal,
-                             Hard         = hard,
-                             Extreme      = extreme,
-                             Evaluation   = evalScore,
-                             Evaluators   = evalCount,
-                             Length       = length,
-                             Title        = title,
-                             Uploaded     = uploadDate,
-                             VideoLink    = vidLink
-                         };
+            {
+                Author = author,
+                BPM = bpm,
+                Description = description,
+                DownloadLink = downloadLink,
+                Downloads = downloads,
+                Easy = easy,
+                Normal = normal,
+                Hard = hard,
+                Extreme = extreme,
+                Evaluation = evalScore,
+                Evaluators = evalCount,
+                Length = length,
+                Title = title,
+                Uploaded = uploadDate,
+                VideoLink = vidLink,
+                ScoreID = id
+            };
 
 
             return Result.Success<LibrarySearchListing, string>(result);
