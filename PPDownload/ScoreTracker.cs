@@ -12,7 +12,7 @@ namespace PPDownload
 {
     internal class ScoreTracker
     {
-        private const string _defaultTrackListLocation = @"C:\KHC\PPD\songs\PPDownloaderTracks";
+        private const string _defaultScoreListLocation = @"C:\KHC\PPD\songs\PPDownloaderTracks";
 
         private CsvParser<InstalledScore> _csvParser =
             new CsvParser<InstalledScore>(
@@ -29,7 +29,7 @@ namespace PPDownload
             {
                 if (_scoreList == null)
                 {
-                    if (!File.Exists(_defaultTrackListLocation))
+                    if (!File.Exists(_defaultScoreListLocation))
                     {
                         _scoreList = new List<InstalledScore>();
                         return _scoreList;
@@ -37,7 +37,7 @@ namespace PPDownload
 
                     try
                     {
-                        _scoreList = _csvParser.ReadFromFile(_defaultTrackListLocation, Encoding.UTF8)
+                        _scoreList = _csvParser.ReadFromFile(_defaultScoreListLocation, Encoding.UTF8)
                             .Select(x => x.Result).ToList();
                         return _scoreList;
                     }
@@ -55,7 +55,7 @@ namespace PPDownload
 
         internal bool IsInstalled(LibrarySearchListing listing) => _scoreList.Any(x => x.ScoreID == listing.ScoreID);
 
-        internal async Task AddInstalledTrack(LibrarySearchListing listing, string installPath)
+        internal async Task AddInstalledScore(LibrarySearchListing listing, string installPath)
         {
             var score = new InstalledScore()
             {
@@ -65,17 +65,19 @@ namespace PPDownload
                 DirectoryPath = installPath
             };
             _scoreList.Add(score);
-            await SaveInstalledTrackList();
+            await SaveInstalledScoreList();
         }
 
-        private async Task SaveInstalledTrackList()
+        private async Task SaveInstalledScoreList()
         {
-            if (File.Exists(_defaultTrackListLocation))
+            if (File.Exists(_defaultScoreListLocation))
             {
-                File.Delete(_defaultTrackListLocation);
+                File.Delete(_defaultScoreListLocation);
             }
-            await File.WriteAllLinesAsync(_defaultTrackListLocation, _scoreList.Select(x => x.ToString()));
+            await File.WriteAllLinesAsync(_defaultScoreListLocation, _scoreList.Select(x => x.ToString()));
         }
+        
+        //todo:delete score
     }
 
     internal class InstalledScore

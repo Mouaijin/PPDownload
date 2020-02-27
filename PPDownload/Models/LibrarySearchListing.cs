@@ -92,5 +92,10 @@ namespace PPDownload.Models
         /// ID of the score used by the site
         /// </summary>
         public string ScoreID { get; set; }
+
+        /// <summary>
+        /// True if score is already managed by PPDownloader
+        /// </summary>
+        public bool IsInstalled { get; set; }
     }
 }
