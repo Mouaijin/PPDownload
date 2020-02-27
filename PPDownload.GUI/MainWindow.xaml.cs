@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Disposables;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,13 +28,22 @@ namespace PPDownload.GUI
             InitializeComponent();
             ViewModel = new LibrarySearchViewModel();
             this.WhenActivated(disposableRegistration =>
-            {
-                
-                
-                
-                
-                
-            });
+                               {
+                                   this.Bind(ViewModel,
+                                             viewModel => viewModel.SearchText,
+                                             view => view.SearchBox.Text)
+                                       .DisposeWith(disposableRegistration);
+
+                                   this.OneWayBind(ViewModel,
+                                                   viewModel => viewModel.SearchResults,
+                                                   view => view.SearchResults.ItemsSource)
+                                       .DisposeWith(disposableRegistration);
+
+                                   this.BindCommand(ViewModel,
+                                                    viewModel => viewModel.SearchLibrary,
+                                                    view => view.SearchButton)
+                                       .DisposeWith(disposableRegistration);
+                               });
         }
     }
 }

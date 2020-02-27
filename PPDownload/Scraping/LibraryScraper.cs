@@ -17,22 +17,11 @@ namespace PPDownload.Scraping
         }
 
 
-        public async IAsyncEnumerable<LibrarySearchListing> SearchScores(string query)
+        public async Task<List<LibrarySearchListing>> SearchScores(string query)
         {
             var doc = await MakeRequest(query);
             var rawListings = doc.Body.QuerySelectorAll("div.panel");
-            foreach (IElement listingElement in rawListings)
-            {
-                var listingResult = ParseSearchListing(listingElement);
-                if (listingResult.IsSuccess)
-                {
-                    yield return listingResult.Value;
-                }
-                else
-                {
-                    Console.WriteLine(listingResult.Error);
-                }
-            }
+            return rawListings.Select(ParseSearchListing).Where(x => x.IsSuccess).Select(x => x.Value).ToList();
         }
 
         private Result<LibrarySearchListing, string> ParseSearchListing(IElement root)

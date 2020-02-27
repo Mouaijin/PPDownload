@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using PPDownload.Models;
 using PPDownload.Scraping;
 using Xunit;
@@ -12,10 +13,8 @@ namespace PPDownload.Tests
         public async void News39SearchTest()
         {
             LibraryScraper lib = new LibraryScraper();
-            var searchScores = lib.SearchScores("news");
-            var searchEnumerator = searchScores.GetAsyncEnumerator();
-            await searchEnumerator.MoveNextAsync();
-            LibrarySearchListing news39 = searchEnumerator.Current;
+            var searchScores = await lib.SearchScores("news");
+            LibrarySearchListing news39 = searchScores.First();
             LibrarySearchListing expected = new LibrarySearchListing()
             {
                 Author = "Sakura-san (桜-さん)",

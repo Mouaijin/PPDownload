@@ -9,18 +9,18 @@ namespace PPDownload
 {
     public class PpdManager
     {
-        private PpDownloader _downloader = new PpDownloader();
-        private LibraryScraper _libraryScraper = new LibraryScraper();
-        private ScoreTracker _tracker = new ScoreTracker();
+        private readonly PpDownloader   _downloader     = new PpDownloader();
+        private readonly LibraryScraper _libraryScraper = new LibraryScraper();
+        private readonly ScoreTracker   _tracker        = new ScoreTracker();
 
-        public IAsyncEnumerable<LibrarySearchListing> SearchScores(string query)
+        public async Task<List<LibrarySearchListing>> SearchScores(string query)
         {
-           var tracks = _libraryScraper.SearchScores(query);
-           return  tracks.Select(x =>
-           {
-                x.IsInstalled = _tracker.IsInstalled(x);
-                return x;
-           });
+            var tracks = await _libraryScraper.SearchScores(query);
+            return tracks.Select(x =>
+                                 {
+                                     x.IsInstalled = _tracker.IsInstalled(x);
+                                     return x;
+                                 }).ToList();
         }
 
         public async Task InstallScore(LibrarySearchListing listing)
@@ -34,7 +34,9 @@ namespace PPDownload
             var directory = installResult.Value;
             await _tracker.AddInstalledScore(listing, directory);
         }
-        
+
+        public async Task UninstallScore(LibrarySearchListing listing) => await _tracker.UninstallScore(listing);
+
         public async Task DownloadSong(LibrarySearchListing listing)
         {
             await _downloader.DownloadUnzipWithVideoDefault(listing);

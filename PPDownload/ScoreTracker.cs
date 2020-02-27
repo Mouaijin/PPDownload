@@ -68,6 +68,12 @@ namespace PPDownload
             await SaveInstalledScoreList();
         }
 
+        internal async Task UninstallScore(LibrarySearchListing listing)
+        {
+            _scoreList.RemoveAll(x => x.ScoreID == listing.ScoreID);
+            await SaveInstalledScoreList();
+        }
+
         private async Task SaveInstalledScoreList()
         {
             if (File.Exists(_defaultScoreListLocation))
