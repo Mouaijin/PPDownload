@@ -64,6 +64,9 @@ namespace PPDownload.GUI
                                      viewModel => viewModel.Length,
                                      view => view.Length.Text)
                          .DisposeWith(disposableRegistration);
+                     this.BindCommand(ViewModel,
+                                      viewModel => viewModel.DownloadSong,
+                                      view => view.DownloadButton).DisposeWith(disposableRegistration);
                  }
                 );
         }

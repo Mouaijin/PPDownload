@@ -6,7 +6,7 @@ using ReactiveUI.Fody.Helpers;
 
 namespace PPDownload.GUI.ViewModels
 {
-    public class LibrarySearchResultViewModel
+    public class LibrarySearchResultViewModel : ReactiveObject
     {
         private readonly LibrarySearchListing _listing;
         private readonly PpdManager _manager;

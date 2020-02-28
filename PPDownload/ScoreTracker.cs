@@ -53,7 +53,7 @@ namespace PPDownload
             }
         }
 
-        internal bool IsInstalled(LibrarySearchListing listing) => _scoreList.Any(x => x.ScoreID == listing.ScoreID);
+        internal bool IsInstalled(LibrarySearchListing listing) => ScoreList.Any(x => x.ScoreID == listing.ScoreID);
 
         internal async Task AddInstalledScore(LibrarySearchListing listing, string installPath)
         {
@@ -64,13 +64,13 @@ namespace PPDownload
                 TargetVideoURL = listing.VideoLink,
                 DirectoryPath = installPath
             };
-            _scoreList.Add(score);
+            ScoreList.Add(score);
             await SaveInstalledScoreList();
         }
 
         internal async Task UninstallScore(LibrarySearchListing listing)
         {
-            _scoreList.RemoveAll(x => x.ScoreID == listing.ScoreID);
+            ScoreList.RemoveAll(x => x.ScoreID == listing.ScoreID);
             await SaveInstalledScoreList();
         }
 
@@ -80,7 +80,7 @@ namespace PPDownload
             {
                 File.Delete(_defaultScoreListLocation);
             }
-            await File.WriteAllLinesAsync(_defaultScoreListLocation, _scoreList.Select(x => x.ToString()));
+            await File.WriteAllLinesAsync(_defaultScoreListLocation, ScoreList.Select(x => x.ToString()));
         }
         
         //todo:delete score
